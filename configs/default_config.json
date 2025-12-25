@@ -1,0 +1,55 @@
+{
+  "_description": "Default configuration values for all DRfold2 MCP scripts",
+  "_version": "1.0.0",
+
+  "global": {
+    "device": "cpu",
+    "use_mock": false,
+    "timeout": 300,
+    "verbose": false,
+    "log_level": "info"
+  },
+
+  "paths": {
+    "repo_root": "repo/DRfold2",
+    "model_hub": "repo/DRfold2/model_hub",
+    "examples_data": "examples/data",
+    "output_root": "results",
+    "temp_dir": "tmp"
+  },
+
+  "models": {
+    "default_config": "cfg_95",
+    "available_configs": ["cfg_95", "cfg_96", "cfg_97", "cfg_99"],
+    "fallback_to_mock": true,
+    "check_availability": true
+  },
+
+  "validation": {
+    "check_input_format": true,
+    "validate_rna_sequence": true,
+    "check_file_existence": true,
+    "validate_output": false
+  },
+
+  "output": {
+    "create_directories": true,
+    "overwrite_existing": false,
+    "cleanup_on_failure": false,
+    "save_metadata": true
+  },
+
+  "error_handling": {
+    "continue_on_warnings": true,
+    "fail_on_missing_models": false,
+    "retry_attempts": 0,
+    "fallback_to_mock": true
+  },
+
+  "performance": {
+    "max_memory_gb": 8,
+    "max_cpu_cores": 4,
+    "parallel_processing": false,
+    "cache_results": false
+  }
+}

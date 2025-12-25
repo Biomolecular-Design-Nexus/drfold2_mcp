@@ -1,0 +1,47 @@
+{
+  "_description": "Configuration for individual DRfold2 model inference",
+  "_source": "Extracted from examples/use_case_4_model_inference.py",
+
+  "model": {
+    "config": "cfg_95",
+    "available_configs": ["cfg_95", "cfg_96", "cfg_97", "cfg_99"],
+    "device": "cpu",
+    "auto_select_device": true
+  },
+
+  "processing": {
+    "timeout": 300,
+    "use_mock": false,
+    "analyze_output": true,
+    "save_intermediate": false
+  },
+
+  "output": {
+    "formats": ["ret", "pkl"],
+    "save_raw_predictions": true,
+    "save_processed_data": true,
+    "compression": false
+  },
+
+  "analysis": {
+    "calculate_statistics": true,
+    "validate_outputs": true,
+    "extract_coordinates": true,
+    "extract_confidence": true
+  },
+
+  "mock_options": {
+    "data_size": 1000,
+    "include_confidence": true,
+    "include_coordinates": true,
+    "include_distances": true,
+    "random_seed": null
+  },
+
+  "data_structure": {
+    "coordinate_format": "xyz",
+    "distance_matrix": "symmetric",
+    "contact_threshold": 8.0,
+    "confidence_range": [0.5, 1.0]
+  }
+}

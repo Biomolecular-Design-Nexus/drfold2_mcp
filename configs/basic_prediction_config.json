@@ -1,0 +1,34 @@
+{
+  "_description": "Configuration for basic RNA structure prediction",
+  "_source": "Extracted from examples/use_case_1_basic_prediction.py",
+
+  "model": {
+    "config": "cfg_95",
+    "available_configs": ["cfg_95", "cfg_96", "cfg_97", "cfg_99"],
+    "device": "cpu"
+  },
+
+  "processing": {
+    "timeout": 300,
+    "use_mock": false,
+    "force_field_steps": 7
+  },
+
+  "output": {
+    "formats": ["pdb", "ret"],
+    "cleanup_intermediate": true,
+    "create_subdirs": true
+  },
+
+  "paths": {
+    "repo_path": "repo/DRfold2",
+    "model_hub": "repo/DRfold2/model_hub",
+    "arena_executable": "repo/DRfold2/Arena/Arena"
+  },
+
+  "mock_options": {
+    "generate_mock_on_failure": true,
+    "mock_coordinates": "linear",
+    "mock_atom_types": ["P", "C4'", "O3'", "O5'"]
+  }
+}

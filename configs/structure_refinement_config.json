@@ -1,0 +1,51 @@
+{
+  "_description": "Configuration for RNA structure refinement using molecular dynamics",
+  "_source": "Extracted from examples/use_case_3_structure_refinement.py",
+
+  "md_parameters": {
+    "steps": 1000,
+    "temperature": 300,
+    "pressure": 1.0,
+    "timestep": 0.002,
+    "friction_coeff": 1.0
+  },
+
+  "force_field": {
+    "primary": "amber14-all.xml",
+    "water_model": "amber14/tip3pfb.xml",
+    "fallback": "amber14-all.xml",
+    "constraints": "HBonds"
+  },
+
+  "solvation": {
+    "add_solvent": false,
+    "padding": 1.0,
+    "nonbonded_method": "NoCutoff",
+    "cutoff": 1.0
+  },
+
+  "processing": {
+    "use_mock": false,
+    "cleanup_temp": true,
+    "validate_input": true,
+    "validate_output": true
+  },
+
+  "output": {
+    "remove_hydrogens": true,
+    "keep_intermediate": false,
+    "format": "pdb"
+  },
+
+  "mock_options": {
+    "coordinate_perturbation": 0.1,
+    "random_seed": 42,
+    "preserve_connectivity": true
+  },
+
+  "quality_control": {
+    "check_openmm_availability": true,
+    "validate_pdb_format": true,
+    "atom_count_tolerance": 0.1
+  }
+}

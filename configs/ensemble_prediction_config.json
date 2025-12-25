@@ -1,0 +1,43 @@
+{
+  "_description": "Configuration for ensemble RNA structure prediction",
+  "_source": "Extracted from examples/use_case_2_ensemble_prediction.py",
+
+  "model": {
+    "configs": ["cfg_95", "cfg_96", "cfg_97", "cfg_99"],
+    "max_models": 5,
+    "device": "cpu",
+    "parallel_execution": false
+  },
+
+  "ensemble": {
+    "clustering_method": "random",
+    "diversity_threshold": 0.3,
+    "min_cluster_size": 1,
+    "max_clusters": 3
+  },
+
+  "processing": {
+    "timeout": 600,
+    "use_mock": false,
+    "individual_timeouts": 300
+  },
+
+  "output": {
+    "save_individual_models": true,
+    "save_clustering_info": true,
+    "calculate_diversity": true,
+    "formats": ["pdb", "ret"]
+  },
+
+  "mock_options": {
+    "generate_diverse_structures": true,
+    "coordinate_variation": 1.0,
+    "random_seed_base": 42
+  },
+
+  "quality_control": {
+    "min_successful_models": 1,
+    "check_structure_validity": true,
+    "remove_duplicates": false
+  }
+}

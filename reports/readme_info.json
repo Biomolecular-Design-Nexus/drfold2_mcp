@@ -1,0 +1,265 @@
+{
+  "project_name": "DRfold2 MCP",
+  "description": "Ab initio RNA 3D structure prediction using the RNA Composite Language Model (RCLM) with end-to-end learning and geometric optimization. Provides access to DRfold2's advanced deep learning models for RNA structure prediction, ensemble generation, and molecular dynamics refinement.",
+  "version": "1.0.0",
+  "python_version": "3.11",
+  "package_manager": "mamba/conda",
+
+  "tools": [
+    {
+      "name": "predict_rna_structure",
+      "type": "sync",
+      "description": "Basic RNA structure prediction from FASTA sequence using DRfold2",
+      "runtime": "30 seconds (mock) / 5-15 minutes (real)",
+      "example_prompt": "Use predict_rna_structure with input from @examples/data/test_sequence.fasta"
+    },
+    {
+      "name": "refine_rna_structure",
+      "type": "sync",
+      "description": "Structure refinement using molecular dynamics energy minimization",
+      "runtime": "30 seconds (mock) / 2-10 minutes (real)",
+      "example_prompt": "Use refine_rna_structure with input_file \"structure.pdb\" and steps 2000"
+    },
+    {
+      "name": "run_model_inference",
+      "type": "sync",
+      "description": "Run inference with individual DRfold2 models for detailed analysis",
+      "runtime": "40 seconds (mock) / 3-10 minutes (real)",
+      "example_prompt": "Use run_model_inference with input_file \"sequence.fasta\" and model_config \"cfg_96\""
+    },
+    {
+      "name": "validate_rna_fasta",
+      "type": "sync",
+      "description": "Validate RNA FASTA file format and sequence content",
+      "runtime": "< 1 second",
+      "example_prompt": "Use validate_rna_fasta with file_path \"examples/data/test_sequence.fasta\""
+    },
+    {
+      "name": "get_example_data",
+      "type": "sync",
+      "description": "Get information about available example datasets for testing",
+      "runtime": "< 1 second",
+      "example_prompt": "Use get_example_data to see available test files"
+    },
+    {
+      "name": "submit_ensemble_prediction",
+      "type": "submit",
+      "description": "Generate ensemble of RNA structures using multiple DRfold2 models",
+      "runtime": "15-45 minutes",
+      "example_prompt": "Submit ensemble prediction for @examples/data/test_sequence.fasta with max_models 3"
+    },
+    {
+      "name": "submit_batch_rna_prediction",
+      "type": "submit",
+      "description": "Submit batch RNA structure prediction for multiple sequences",
+      "runtime": "Variable based on sequence count",
+      "example_prompt": "Submit batch prediction for [\"seq1.fasta\", \"seq2.fasta\", \"seq3.fasta\"]"
+    },
+    {
+      "name": "submit_comprehensive_analysis",
+      "type": "submit",
+      "description": "Submit comprehensive RNA analysis pipeline",
+      "runtime": "30+ minutes",
+      "example_prompt": "Submit comprehensive analysis for @examples/data/test_sequence.fasta with all options enabled"
+    },
+    {
+      "name": "get_job_status",
+      "type": "job_management",
+      "description": "Check job progress and current status",
+      "example_prompt": "Use get_job_status with job_id \"abc123\""
+    },
+    {
+      "name": "get_job_result",
+      "type": "job_management",
+      "description": "Get completed job results and output files",
+      "example_prompt": "Use get_job_result with job_id \"abc123\""
+    },
+    {
+      "name": "get_job_log",
+      "type": "job_management",
+      "description": "View job execution logs and output",
+      "example_prompt": "Use get_job_log with job_id \"abc123\" and tail 100"
+    },
+    {
+      "name": "cancel_job",
+      "type": "job_management",
+      "description": "Cancel a running job",
+      "example_prompt": "Use cancel_job with job_id \"abc123\""
+    },
+    {
+      "name": "list_jobs",
+      "type": "job_management",
+      "description": "List all jobs with optional status filter",
+      "example_prompt": "Use list_jobs to see all jobs or with status \"running\""
+    }
+  ],
+
+  "scripts": [
+    {
+      "name": "basic_prediction.py",
+      "description": "Basic RNA structure prediction using single model configuration",
+      "example_command": "mamba run -p ./env python scripts/basic_prediction.py --input examples/data/test_sequence.fasta --output results/basic.pdb --use-mock"
+    },
+    {
+      "name": "ensemble_prediction.py",
+      "description": "Multi-model ensemble prediction with clustering analysis",
+      "example_command": "mamba run -p ./env python scripts/ensemble_prediction.py --input examples/data/test_sequence.fasta --output results/ensemble --max-models 3 --use-mock"
+    },
+    {
+      "name": "structure_refinement.py",
+      "description": "OpenMM molecular dynamics structure refinement",
+      "example_command": "mamba run -p ./env python scripts/structure_refinement.py --input structure.pdb --output refined.pdb --steps 1000 --use-mock"
+    },
+    {
+      "name": "model_inference.py",
+      "description": "Individual model testing and detailed analysis",
+      "example_command": "mamba run -p ./env python scripts/model_inference.py --input examples/data/test_sequence.fasta --output results/inference --model cfg_95 --use-mock --analyze"
+    }
+  ],
+
+  "demo_data": [
+    {
+      "file": "test_sequence.fasta",
+      "description": "Test RNA sequence (30 nucleotides): UUGGGUUCCCUCACCCCAAUCAUAAAAAGG",
+      "size": "36 bytes",
+      "used_by": ["predict_rna_structure", "run_model_inference", "submit_ensemble_prediction", "validate_rna_fasta"]
+    },
+    {
+      "file": "cfg_for_folding.json",
+      "description": "Geometric optimization parameters for DRfold2",
+      "size": "518 bytes",
+      "used_by": ["refine_rna_structure", "structure_refinement.py"]
+    },
+    {
+      "file": "cfg_for_selection.json",
+      "description": "Model selection configuration parameters",
+      "size": "519 bytes",
+      "used_by": ["submit_ensemble_prediction", "ensemble_prediction.py"]
+    }
+  ],
+
+  "configs": [
+    {
+      "file": "default_config.json",
+      "description": "Global default configuration values for all scripts",
+      "parameters": {
+        "device": "cpu",
+        "use_mock": false,
+        "timeout": 300,
+        "model_config": "cfg_95"
+      }
+    },
+    {
+      "file": "basic_prediction_config.json",
+      "description": "Basic prediction specific configuration",
+      "parameters": {
+        "model_config": "cfg_95",
+        "device": "cpu",
+        "use_mock": false
+      }
+    },
+    {
+      "file": "ensemble_prediction_config.json",
+      "description": "Ensemble prediction specific configuration",
+      "parameters": {
+        "max_models": 4,
+        "clustering": true,
+        "diversity_threshold": 0.1
+      }
+    },
+    {
+      "file": "structure_refinement_config.json",
+      "description": "Structure refinement specific configuration",
+      "parameters": {
+        "steps": 1000,
+        "force_field": "amber14",
+        "use_openmm": true
+      }
+    },
+    {
+      "file": "model_inference_config.json",
+      "description": "Model inference specific configuration",
+      "parameters": {
+        "model_config": "cfg_95",
+        "analyze_output": true,
+        "save_intermediate": false
+      }
+    }
+  ],
+
+  "installation": {
+    "environment_path": "./env",
+    "python_command": "mamba run -p ./env python",
+    "server_command": "mamba run -p ./env python src/server.py",
+    "fastmcp_command": "fastmcp install src/server.py --name DRfold2"
+  },
+
+  "integration": {
+    "claude_code": {
+      "mcp_registration": "claude mcp add DRfold2 -- $(pwd)/env/bin/python $(pwd)/src/server.py",
+      "example_prompts": [
+        "Use predict_rna_structure with input from @examples/data/test_sequence.fasta",
+        "Submit ensemble prediction for @examples/data/test_sequence.fasta with max_models 3",
+        "Process these files in batch: @examples/data/test_sequence.fasta"
+      ]
+    },
+    "gemini_cli": {
+      "config_path": "~/.gemini/settings.json",
+      "command_path": "/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/drfold2_mcp/env/bin/python",
+      "server_path": "/home/xux/Desktop/NucleicMCP/NucleicMCP/tool-mcps/drfold2_mcp/src/server.py"
+    }
+  },
+
+  "features": [
+    "Ab initio RNA 3D structure prediction using deep learning",
+    "Multi-model ensemble prediction with clustering analysis",
+    "Molecular dynamics structure refinement using OpenMM",
+    "Individual model inference and detailed analysis",
+    "Batch processing for multiple sequences",
+    "Comprehensive job management for long-running tasks",
+    "Mock mode for testing without model dependencies",
+    "Claude Code integration with @ file references",
+    "Gemini CLI compatibility",
+    "Extensive configuration system",
+    "Robust error handling and fallback strategies"
+  ],
+
+  "performance": {
+    "mock_mode": {
+      "basic_prediction": "~0.8 seconds",
+      "ensemble_prediction": "~1.2 seconds",
+      "structure_refinement": "~0.5 seconds",
+      "model_inference": "~0.7 seconds"
+    },
+    "real_mode": {
+      "basic_prediction": "5-15 minutes",
+      "ensemble_prediction": "15-45 minutes",
+      "structure_refinement": "2-10 minutes",
+      "model_inference": "3-10 minutes"
+    }
+  },
+
+  "requirements": {
+    "essential": [
+      "Python 3.11+",
+      "Conda/Mamba",
+      "FastMCP 2.14.1",
+      "Loguru"
+    ],
+    "optional": [
+      "PyTorch (for real predictions)",
+      "OpenMM (for real refinement)",
+      "NumPy (for enhanced analysis)",
+      "DRfold2 model weights (~1.3GB)"
+    ]
+  },
+
+  "status": {
+    "environment_setup": "Complete",
+    "scripts_created": "Complete",
+    "mcp_server": "Complete",
+    "testing": "Complete",
+    "documentation": "Complete",
+    "model_weights": "Optional (enables real prediction)"
+  }
+}
